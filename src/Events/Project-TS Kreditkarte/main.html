@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="./main.ts" type="module"></script>
+    <title>Project-TS Kreditkarte</title>
+</head>
+
+<body>
+    <div class="wrapper-main">
+        <div class="output">
+            <div class="icons">
+                <img src="./img/chip.png">
+                <img src="./img/visa.png">
+            </div>
+            <div class="number" id="display-card-number">
+               <p>#### #### #### ####</p>
+            </div>
+            <div class="holder-and-expires">
+                <div class="holder">
+                    <p>Card Holder</p>
+                    <p id="display-card-holder">FULL NAME</p>
+                </div>
+                <div class="expires">
+                    <p >Expires</p>
+                    <p id="display-exp-date">MM/YY</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="wrapper-input">
+            <form id="my-form">
+                <div class="card-info">
+                    <label>Card Number</label>
+                    <input type="number" name="cardNumber" id="cardNumber">
+                </div>
+                <div class="card-info">
+                    <label>Card Holder</label>
+                    <input type="text" name="cardHolder" id="cardHolder">
+                </div>
+                <div class="exp-cvv">
+                    <div>
+                        <label for="exp-date">Expiration Date</label>
+                        <input type="date" id="exp-date" name="exp-date">
+                    </div>
+                    <div>
+                        <label for="cvv">CVV</label>
+                        <input type="password" id="cvv" name="cvv">
+                    </div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+
+        </div>
+    </div>
+</body>
+
+</html>

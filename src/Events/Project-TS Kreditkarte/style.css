@@ -1,0 +1,89 @@
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    background-color: antiquewhite;
+}
+
+
+.output {
+    width: 370px; height: 200px;
+    background: url('./img/bg-image.png');
+    object-fit: cover;
+
+    display: flex;
+    flex-direction: column;
+
+    row-gap: 20px;
+    padding: 10px;
+
+    margin-left: 15px;
+    
+}
+.icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.icons img {
+    width: 35px;
+    height: 35px;
+}
+
+.holder-and-expires {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-input{
+    background-color: white;
+    width: 420px; height: 400px;
+}
+
+#my-form{
+    padding: 100px 50px 50px 50px;
+}
+
+#my-form label{
+    font-size: 13px;
+}
+
+#my-form input{
+    height: 30px;
+}
+
+.card-info {
+    width: 320px; height: 65px;
+}
+
+.card-info input{
+    width: 300px;
+}
+
+
+.exp-cvv {
+    width: 320px;
+    display: flex;
+}
+
+.exp-cvv input {
+    width: calc(120px);
+}
+
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #e57373;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #d32f2f;
+}

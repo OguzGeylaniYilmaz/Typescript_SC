@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda&family=Open+Sans&family=Roboto&family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="form.ts" type="module"></script>
+    <title>Forms-TS-Level-3_2</title>
+</head>
+<body>
+    <form onsubmit="false">
+        <h2>Fonts Generator</h2>
+        <input type="range" id="sizeInput" min="10" max="100" value="30">
+        <label>Font-Size</label>
+        <select id="fontSelect">
+            <option value="'Bodoni Moda', serif">Bodoni Moda</option>
+            <option value="'Open Sans', sans-serif">Open Sans</option>
+            <option value="'Roboto', sans-serif">Roboto</option>
+            <option value="'Yusei Magic', sans-serif">Yusei Magic</option>
+        </select>
+
+        <input type="text" id="textInput" placeholder="Type something">
+        <h1 id="outputText">Test</h1>
+    </form>
+    
+
+</body>
+</html>
