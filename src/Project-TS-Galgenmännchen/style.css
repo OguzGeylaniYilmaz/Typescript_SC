@@ -1,0 +1,40 @@
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  margin-top: 20px;
+}
+.keyboard button {
+  padding: 10px;
+  font-size: 16px;
+}
+.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+h1 {
+  text-align: center;
+}
+#reset-button {
+  background-color: firebrick;
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 25px;
+  color: wheat;
+}
+#timer {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-left: 40rem;
+}
+
+.wrong {
+  background-color: red;
+}
+
+.correct {
+  background-color:green
+}
