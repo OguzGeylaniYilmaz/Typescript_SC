@@ -17,7 +17,7 @@ function myDrinks()
 
 
     let liste = document.getElementById("drink-list");
-    if(liste)
+    if(liste)   
     {
         liste.innerHTML = ""; // löscht Inhalt
         getraenke.forEach(drink=>{
