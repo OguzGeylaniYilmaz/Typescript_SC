@@ -24,6 +24,7 @@ allColors.forEach(color => {
     button.style.backgroundColor = color;
     button.style.color = "#000000";
     button.style.padding = "10px";
+    button.style.borderRadius = "25px";
     button.style.margin = "5px";
     button.style.border = "none";
     button.style.cursor = "pointer";
