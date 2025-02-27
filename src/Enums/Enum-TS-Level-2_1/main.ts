@@ -5,19 +5,21 @@ enum HtmlError {
   InternalServerError = 500,
 }
 
-function showHtmlError()  {
+function showHtmlError() {
   let randomValue = Math.floor(Math.random() * 6);
 
   let expression =
     randomValue <= 2
-      ? console.log(HtmlError.OK)
+      ? console.log(`Error ${HtmlError.OK} (OK)`)
       : randomValue === 3
-      ? console.log(HtmlError.Redirect)
+      ? console.log(`Error ${HtmlError.Redirect} (Redirect)`)
       : randomValue === 4
-      ? console.log(HtmlError.BadRequest)
-      : console.log(HtmlError.InternalServerError);
+      ? console.log(`Error ${HtmlError.BadRequest} (BadRequest)`)
+      : console.log(
+          `Error ${HtmlError.InternalServerError} (InternalServerError)`
+        );
 
-      return expression;
+  return expression;
 }
 
 showHtmlError();
