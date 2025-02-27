@@ -1,42 +1,26 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #130a0a;
+    background-color: #f4f4f9;
+    color: #333;
 }
 
 .container {
     text-align: center;
     background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.choices button {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 50%;
-}
-
-#result {
-    margin-top: 20px;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-#restart {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: red;
-    color: white;
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #444;
 }
 
 .rounds {
@@ -44,8 +28,57 @@ body {
 }
 
 .rounds label {
-    margin-right: 10px;
-    font-size: 16px;
+    margin-right: 15px;
+    font-size: 1.1rem;
+    cursor: pointer;
 }
 
+.score-board {
+    margin-bottom: 20px;
+}
 
+.score {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.result {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #555;
+}
+
+.choices {
+    margin-bottom: 20px;
+}
+
+.choices button {
+    background-color: #6200ea;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    margin: 10px;
+    font-size: 1.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.choices button:hover {
+    background-color: #3700b3;
+}
+
+#restart {
+    background-color: #03dac6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#restart:hover {
+    background-color: #018786;
+}
