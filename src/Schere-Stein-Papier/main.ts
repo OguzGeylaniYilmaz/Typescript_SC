@@ -15,7 +15,7 @@ let currentRound = 0;
 roundsInputs.forEach(input => {
     input.addEventListener('change', (event) => {
         const target = event.target as HTMLInputElement;
-        roundsToPlay = parseInt(target.value);
+        roundsToPlay = parseInt(target.value);      
         restartGame();
     });
 });
