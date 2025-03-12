@@ -1061,4 +1061,4 @@ document.addEventListener("DOMContentLoaded", () => {
     displayMovies(movies);
     addMovieForm.reset();
   });
-});
+})

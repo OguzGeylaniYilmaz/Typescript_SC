@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+button {
+  background-color: green;
+  color: #fff;
+  padding: 6px;
+}
+
+h1,
+button {
+  margin-left: 20px;
+  margin-top: 10px;
+}
