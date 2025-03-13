@@ -1,0 +1,29 @@
+body {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  background-color: sandybrown;
+}
+
+#minuteCountdownBereich {
+  background-color: #dcffcc;
+  color: #baabda;
+  display: inline-block;
+  padding: 10px;
+  font-family: Geneva;
+  font-weight: bold;
+}
+
+input {
+  border-radius: 5px;
+  background: #9fdfcd;
+}
+
+button {
+  border-radius: 5px;
+  background: #d79abc;
+  margin-top: 10px;
+  width: 100%;
+  padding: 6px;
+}
