@@ -30,3 +30,10 @@ figcaption {
   margin-top: 10px;
   font-weight: bold;
 }
+
+button {
+  background-color: bisque;
+  color: red;
+  border: none;
+  padding: 12px;
+}
