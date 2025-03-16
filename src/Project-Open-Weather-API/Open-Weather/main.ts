@@ -5,7 +5,11 @@ const country = document.querySelector(".country") as HTMLDivElement;
 const forecastContainer = document.querySelector(".forecast") as HTMLDivElement;
 const searchBar = document.getElementById("searchBar") as HTMLInputElement;
 const searchButton = document.getElementById("searchBtn") as HTMLInputElement;
+const forecastBtn = document.getElementById(
+  "searchForecastBtn"
+) as HTMLButtonElement;
 let timezoneOffset: number | null = null;
+let lastSearchedCity: string = "";
 
 async function fetchCoordinates(cityName: string) {
   try {
@@ -29,30 +33,52 @@ async function fetchWeather(cityName: string) {
   const coordinates = await fetchCoordinates(cityName);
   if (!coordinates) return;
 
+  lastSearchedCity = cityName;
   const { lat, lon } = coordinates;
 
   try {
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
-    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
 
-    const [weatherRes, forecastRes] = await Promise.all([
-      fetch(weatherUrl),
-      fetch(forecastUrl),
-    ]);
-
-    const weatherData = await weatherRes.json();
-    const forecastData = await forecastRes.json();
+    const res = await fetch(weatherUrl);
+    const weatherData = await res.json();
 
     timezoneOffset = weatherData.timezone;
-
     displayWeather(weatherData);
-    displayForecast(forecastData);
   } catch (error) {
     console.log("Weather retrieval error", error);
   }
 }
 
+//# Getting Forecast for next 5 days
+
+async function fetchForecast() {
+  if (!lastSearchedCity) {
+    forecastContainer.innerHTML = "<p>Please choose a city first.</p>";
+    return;
+  }
+
+  const coordinates = await fetchCoordinates(lastSearchedCity);
+  if (!coordinates) return;
+
+  const { lat, lon } = coordinates;
+  try {
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
+
+    const res = await fetch(forecastUrl);
+    const forecastData = await res.json();
+
+    output.style.display = "none";
+
+    displayForecast(forecastData);
+  } catch (error) {
+    console.error("Error getting 5-day forecast:", error);
+  }
+}
+
 function displayForecast(data: any) {
+  forecastContainer.style.display = "block";
+  forecastContainer.innerHTML = "<h3>📅 5 Day Weather Forecast</h3>";
+
   const dailyForecast: {
     [key: string]: { tempMax: number; description: string; icon: string };
   } = {};
@@ -77,8 +103,6 @@ function displayForecast(data: any) {
       );
     }
   });
-
-  forecastContainer.innerHTML = "<h3>📅 5 Day Weather Forecast</h3>";
 
   Object.entries(dailyForecast).forEach(([date, forecast]) => {
     forecastContainer.innerHTML += `
@@ -113,18 +137,17 @@ function updateLocalTime() {
 function displayWeather(data: any) {
   timezoneOffset = data.timezone;
 
-  console.log(data);
   const sunriseTime = new Date((data.sys.sunrise + timezoneOffset) * 1000);
   const sunsetTime = new Date((data.sys.sunset + timezoneOffset) * 1000);
 
-  const formattedSunrise = new Intl.DateTimeFormat("tr-TR", {
+  const formattedSunrise = new Intl.DateTimeFormat("en-EN", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
     timeZone: "UTC",
   }).format(sunriseTime);
 
-  const formattedSunset = new Intl.DateTimeFormat("tr-TR", {
+  const formattedSunset = new Intl.DateTimeFormat("en-EN", {
     hour: "2-digit",
     minute: "2-digit",
     second: "2-digit",
@@ -149,6 +172,8 @@ function displayWeather(data: any) {
                          Math.round(data.coord.lat * 100) / 100
                        }  ${Math.round(data.coord.lon * 100) / 100}  </p>`;
 
+  forecastContainer.style.display = "none";
+
   clearInterval((window as any).timeInternal);
   (window as any).timeInternal = setInterval(updateLocalTime, 1000);
 }
@@ -158,3 +183,5 @@ searchButton.addEventListener("click", () => {
   if (cityName) fetchWeather(cityName);
   else output.innerHTML = "<p >Please enter a city name.</p>";
 });
+
+forecastBtn.addEventListener("click", fetchForecast);
