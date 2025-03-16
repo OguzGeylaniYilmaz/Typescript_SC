@@ -2,6 +2,7 @@ const apiKey: string = "1c07e7d355904fddedf4c43969ba9956";
 
 const output = document.querySelector(".content") as HTMLDivElement;
 const country = document.querySelector(".country") as HTMLDivElement;
+const forecastContainer = document.querySelector(".forecast") as HTMLDivElement;
 const searchBar = document.getElementById("searchBar") as HTMLInputElement;
 const searchButton = document.getElementById("searchBtn") as HTMLInputElement;
 let timezoneOffset: number | null = null;
@@ -11,7 +12,6 @@ async function fetchCoordinates(cityName: string) {
     const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=1&appid=${apiKey}`;
     const res = await fetch(geoUrl);
     const data = await res.json();
-    console.log(data);
 
     if (data.lenghth === 0) {
       throw new Error("City not found");
@@ -33,15 +33,65 @@ async function fetchWeather(cityName: string) {
 
   try {
     const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
+    const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric&lang=en`;
 
-    const res = await fetch(weatherUrl);
-    const weatherData = await res.json();
+    const [weatherRes, forecastRes] = await Promise.all([
+      fetch(weatherUrl),
+      fetch(forecastUrl),
+    ]);
+
+    const weatherData = await weatherRes.json();
+    const forecastData = await forecastRes.json();
 
     timezoneOffset = weatherData.timezone;
+
     displayWeather(weatherData);
+    displayForecast(forecastData);
   } catch (error) {
     console.log("Weather retrieval error", error);
   }
+}
+
+function displayForecast(data: any) {
+  const dailyForecast: {
+    [key: string]: { tempMax: number; description: string; icon: string };
+  } = {};
+
+  data.list.forEach((item: any) => {
+    const date = new Date(item.dt * 1000).toLocaleDateString("en-EN", {
+      weekday: "long",
+      day: "2-digit",
+      month: "2-digit",
+    });
+
+    if (!dailyForecast[date]) {
+      dailyForecast[date] = {
+        tempMax: item.main.temp,
+        description: item.weather[0].description,
+        icon: item.weather[0].icon,
+      };
+    } else {
+      dailyForecast[date].tempMax = Math.max(
+        dailyForecast[date].tempMax,
+        item.main.temp
+      );
+    }
+  });
+
+  forecastContainer.innerHTML = "<h3>📅 5 Day Weather Forecast</h3>";
+
+  Object.entries(dailyForecast).forEach(([date, forecast]) => {
+    forecastContainer.innerHTML += `
+      <div class="forecast-day">
+        <p><strong>${date}</strong></p>
+        <img src="https://openweathermap.org/img/wn/${
+          forecast.icon
+        }.png" alt="${forecast.description}">
+        <p>🌡️ ${forecast.tempMax.toFixed(1)}°C</p>
+        <p>🌤️ ${forecast.description}</p>
+      </div>
+    `;
+  });
 }
 
 function updateLocalTime() {
@@ -87,7 +137,7 @@ function displayWeather(data: any) {
 
   output.classList.add("desc");
   output.innerHTML = ` <p>Local Time : ${updateLocalTime()} 🕒 </p>
-                       <p>Wind Speed : ${data.wind.speed} 💨(${
+                       <p>Wind Speed : ${data.wind.speed} 💨 (${
     data.wind.deg
   }) </p>
                        <p>Cloudiness : ${data.weather[0].description} 🌤️</p>
